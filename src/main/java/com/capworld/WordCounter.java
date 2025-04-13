@@ -13,7 +13,12 @@ import java.util.PriorityQueue;
 
 public class WordCounter {
 
-    public void calc() {
+    /**
+     * This method will read a file named "shakespeare_historical_plays.txt" and calculate the
+     * 10 most word occurrences.
+     *
+     */
+    public List<Map.Entry<String, Integer>> calc() {
         Map<String, Integer> numberOfFoundWords = new HashMap<>();
 
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -48,14 +53,24 @@ public class WordCounter {
             List<Map.Entry<String, Integer>> topWordResult = new ArrayList<>(topWords);
             topWordResult.sort((count1, count2) -> count2.getValue().compareTo(count1.getValue()));
 
-            int i = 1;
-            for (Map.Entry<String, Integer> wordAndCount : topWordResult) {
-                System.out.println( i++ + " : " + wordAndCount.getKey() + ": " + wordAndCount.getValue());
-            }
+            return topWordResult;
 
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
-
+        return List.of();
     }
+
+    /**
+     * Display the content of the parsed list
+     *
+     * @param resultList Display the keys and values of this list.
+     */
+    public void display(List<Map.Entry<String, Integer>> resultList) {
+        int i = 1;
+        for (Map.Entry<String, Integer> wordAndCount : resultList) {
+            System.out.println( i++ + " : " + wordAndCount.getKey() + ": " + wordAndCount.getValue());
+        }
+    }
+
 }
